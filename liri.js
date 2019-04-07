@@ -26,28 +26,8 @@ function searchSpotify(term) {
     });
 };
 
-//I think this is the bands in town API: "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"
-//I think this is the spotify API: https://developer.spotify.com/dashboard/applications/24e07ceceb7e4f7e89c5027133b453bb
-//OMDb API: http://www.omdbapi.com/?i=tt3896198&apikey=94b641d6
-
-
-// Mohammed's liri app
-//https://github.com/mohamedsamara/Liri-Node-App
-
-
-
-
-
-
-
-
-
-/////////////////////////////-------------------------------------------------------------
-
-
 function searchOMDB(term){
     var axios = require("axios");
-    // i need to figure out which is my api
     var url="http://www.omdbapi.com/?t=" + term + "&apikey="+ omdb;
     axios.get(url).then(
         function(response) {   
@@ -64,7 +44,7 @@ function searchOMDB(term){
         }
     )   
 };
-//---------------------------------------------------------------------BANDS IN TOWN
+
 function searchBandsInTown(term){
     var axios = require("axios");
     axios.get("https://rest.bandsintown.com/artists/"+term+"/events?app_id=codingbootcamp")
@@ -78,16 +58,16 @@ function searchBandsInTown(term){
         }
     });
 };
-//---------------------------------------------------------------------DO WHAT IT SAYS
+
 var fs = require("fs");
 function doWhatItSays(){
     fs.readFile("random.txt", "utf8", function(error, data) {
         console.log(data);
         var randomtxt = data.split(',');
-        catagory = randomtxt[0];
+        category = randomtxt[0];
         searchTerm= randomtxt[1];
 
-        switch (catagory) {
+        switch (category) {
             case "concert-this":
                 searchBandsInTown(searchTerm);
                 break;
@@ -107,29 +87,28 @@ function doWhatItSays(){
     });
 };
 
-//---------------------------------------------------------------------MAIN FUNCTION
 
-var catagory = process.argv[2];
+var category = process.argv[2];
 var searchTerm = process.argv[3];
    
-switch (catagory) {
+switch (category) {
     case "concert-this":
         if (searchTerm==null){
-            searchTerm="Lumineers";
+            searchTerm="Maggie Rogers";
             console.log("No input given. Default: ", searchTerm);
         };
         searchBandsInTown(searchTerm);
         break;
     case "spotify-this-song":
         if (searchTerm==null){
-            searchTerm="The Sign";
+            searchTerm="Rise Up";
             console.log("No input given. Default: ", searchTerm);
         };
         searchSpotify(searchTerm);
         break;
     case "movie-this":
         if (searchTerm==null){
-            searchTerm="Mr. Nobody";
+            searchTerm="Pretty Woman";
             console.log("No input given. Default: ", searchTerm);
         };
         searchOMDB(searchTerm);
